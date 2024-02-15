@@ -6,16 +6,16 @@ WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'fitness')\gexec
 drop table if exists peserta;
 
 create table peserta (
-    id      bigserial primary key,     
-    nama    varchar(255) not null,
-    email   varchar(100) not null,
-    passwd  varchar(100),
-    nohp    varchar(30),
-    status  varchar(30),
-    OTP     int,
-    nomor_kartu varchar(255),
-    cvv         varchar(255),
-    expiry_date varchar(255),
+    id              bigserial primary key,     
+    nama            varchar(255) not null,
+    email           varchar(100) not null,
+    passwd          varchar(100),
+    nohp            varchar(30),
+    tervalidasi     boolean,
+    otp             int,
+    nomor_kartu     varchar(255),
+    cvv             varchar(255),
+    expiry_date     varchar(255),
     nama_pemegang_kartu varchar(255)
 );
 

@@ -33,13 +33,6 @@ public class FitnessController {
         return "login";
     }
 
-    // @PostMapping("/authenticateUser")
-    // public String authenticateUser() {
-    // // TODO: process POST request
-
-    // return "test";
-    // }
-
     @GetMapping("/register")
     public String showRegister(Model model) {
         Peserta peserta = new Peserta();
@@ -66,6 +59,7 @@ public class FitnessController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         peserta.setPassword(encoder.encode(peserta.getPassword()));
+        peserta.setTervalidasi(false);
         pesertaService.addPeserta(peserta);
         redirectAttributes.addFlashAttribute("message", "SUCCESS");
         return "redirect:register";
@@ -74,6 +68,36 @@ public class FitnessController {
     @GetMapping("/forgotPassword")
     public String showForgotPassword() {
         return "forgot_password";
+    }
+
+    @GetMapping("/validateCC")
+    public String validateCC(@RequestParam String email, @RequestParam String otp, Model model,
+            RedirectAttributes redirectAttributes) {
+        Peserta peserta = pesertaService.findByEmail(email);
+
+        if (peserta == null) {
+            redirectAttributes.addFlashAttribute("message", "NOT_EXISTS");
+            return "redirect:validateResult";
+        }
+
+        int savedOTP = peserta.getOtp();
+        int otpSent = Integer.parseInt(otp);
+
+        if (otpSent != savedOTP) {
+            redirectAttributes.addFlashAttribute("message", "WRONG_OTP");
+            return "redirect:validateResult";
+        }
+
+        peserta.setTervalidasi(true);
+        pesertaService.savePeserta(peserta);
+        redirectAttributes.addFlashAttribute("message", "SUCCESS");
+
+        return "redirect:validateResult";
+    }
+
+    @GetMapping("/validateResult")
+    public String getMethodName() {
+        return "validate";
     }
 
 }

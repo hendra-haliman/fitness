@@ -29,6 +29,10 @@ public class PesertaService implements UserDetailsService {
         return pesertaRepository.findByUserName(username);
     }
 
+    public Peserta savePeserta(Peserta peserta) {
+        return pesertaRepository.save(peserta);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Peserta peserta = pesertaRepository.findByUserName(username);

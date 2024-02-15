@@ -34,8 +34,13 @@ public class Peserta {
     // @Column(name = "kartu_kredit")
     // private KartuKredit kartuKredit;
 
-    @Enumerated(EnumType.STRING)
-    private Status status;
+    // @Enumerated(EnumType.STRING)
+    // private Status status;
+    @Column(name = "tervalidasi")
+    private Boolean tervalidasi;
+
+    @Column(name = "otp")
+    private int otp;
 
     @Column(name = "nomor_kartu")
     private String nomorKartu;
