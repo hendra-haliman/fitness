@@ -1,0 +1,27 @@
+package com.test.fitness.model;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Data;
+
+@Entity(name = "kartu_kredit")
+@Data
+public class KartuKredit {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "nomor_kartu")
+    private String nomorKartu;
+
+    @Column(name = "cvv")
+    private String CVV;
+
+    @Column(name = "expiry_date")
+    private String expiryDate;
+
+    @Column(name = "nama_pemegang_kartu")
+    private String namaPemegangKartu;
+}
